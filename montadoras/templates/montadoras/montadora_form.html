@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+
+{% block title %}{% if montadora %} Editar {% else %} Cadastrar {% endif %} montadora {% endblock %}
+
+{% block content %}
+
+{% load static %}
+<div class="relative h-full flex flex-col justify-center items-center overflow-hidden bg-no-repeat bg-center bg-cover"   
+
+{% if montadora %} 
+    style="background-image: url('{% static montadora.avatar_url %}')"  
+{% endif %}>
+{% if montadora %} 
+    <div class="absolute inset-0 bg-black bg-opacity-50 backdrop-blur-sm"></div>
+{% endif %}
+  
+
+  <h5 class="mb-2  z-10 text-white text-4xl text-center font-bold tracking-tight text-gray-900" 
+  {% if not montadora %} 
+  style="color: black;"
+{% endif %}>
+  {% if montadora %} EDITAR{% else %} CADASTRAR {% endif %} MONTADORA</h5>
+
+  <form class="relative z-10 block flex flex-col gap-4 w-96 p-6 bg-blue-300 bg-opacity-90 border border-white border-2 rounded-lg shadow dark:border-white border-dashed" method="post">
+      {% csrf_token %}
+      <input class="block text w-full p-2 text-gray-900 border border-gray-300 rounded-lg text-xs focus:ring-blue-500 focus:border-blue-500" type="text" name="name" placeholder="Nome..." value="{{ montadora.name }}">
+      <input class="block text w-full p-2 text-gray-900 border border-gray-300 rounded-lg text-xs focus:ring-blue-500 focus:border-blue-500" type="text" name="country" placeholder="País" value="{{ montadora.country }}">
+      <input class="block text w-full p-2 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 text-xs focus:ring-blue-500 focus:border-blue-500" type="number" name="foundation_year" placeholder="Ano de fundação" value="{{ montadora.foundation_year }}">
+      <input class="block text w-full p-2 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 text-xs focus:ring-blue-500 focus:border-blue-500" type="text" name="avatar_url" placeholder="HREF para a logo" value="{{ montadora.avatar_url }}">
+
+      <input 
+      {% if montadora %}
+      value="ATUALIZAR" 
+      {% else %}
+      value="SALVAR"
+      {% endif %}
+      
+      type="submit" class="text-yellow-300 font-bold bg-[#1da1f2] hover:bg-[#1da1f2]/90 focus:ring-4 focus:outline-none focus:ring-[#1da1f2]/50 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:focus:ring-[#1da1f2]/55 me-2 mb-2 w-full" id="submitBtn"/>
+  </form>
+</div>
+
+
+{% endblock %}

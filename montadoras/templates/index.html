@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+
+{% block title %} Montadoras {% endblock %}
+
+{% load static %}
+
+{% block content %}
+    <div class="px-12 pt-16">
+
+        {% if object_list %}
+            <div class="flex flex-col justify-between">
+                <div class="flex gap-8">
+                    <div>
+                        <h1 class="mb-4 mt-8 font-extrabold tracking-widest text-blue-600 text-6xl">PATRO<span
+                                class="text-gray-900">CARS</span></h1>
+
+                        <h3 class="mb-4 mt-4 text-5xl leading-none tracking-tight text-gray-900 ">
+                            Tire o sonho do carro próprio do papel <span
+                                class="underline underline-offset-3 decoration-2 decoration-blue-400 dark:decoration-blue-600">hoje.</span>
+                        </h3>
+                        <p class="text-lg font-normal text-gray-500 lg:text-xl dark:text-gray-400">Empresa líder em
+                            satisfação com compra de automóveis na América Latina*. Desde 1995 colocando mais alguns
+                            pares de rodas estrada afora.</p>
+                    </div>
+                    <img height="100" width="300" src="{% static 'images/initial.png' %}"/>
+                </div>
+
+                <hr class="my-12 h-0.5 border-t-0 bg-neutral-100 dark:bg-black/10"/>
+
+                <h4 class="text-4xl text-center font-bold">Nossas parceiras</h4>
+                <div class="flex items-center justify-center gap-3">
+                    {% for montadora in object_list %}
+                        <a href="{% url 'montadora_put' montadora.id%}" class="w-56 py-8 bg-white pointer">
+                            <div class="flex justify-center items-center">
+                                {% if montadora.avatar_url %}
+                                    <img class="grayscale" width="50" height="80"
+                                         src="{% static montadora.avatar_url %}"
+                                         alt="Avatar da Montadora">
+                                {% endif %}
+                            </div>
+                            <h5 class="mb-2 text-2xl tracking-tight text-center text-gray-900">
+                                {{ montadora.name }}
+                            </h5>
+
+                            <!-- <a class="text-gray-900 bg-gradient-to-r from-lime-200 via-lime-400 to-lime-500 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-lime-300 dark:focus:ring-lime-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2" href="/montadoras/editar/{{montadora.id}}">Editar</a> | <form class="inline" action="{% url 'montadora_delete' montadora.id %}"" method="post">{% csrf_token %}
+      <input class="text-white bg-gradient-to-r from-red-400 via-red-500 to-red-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2" type="submit" value="Deletar"> -->
+                            <!-- </form> -->
+                        </a>
+                    {% endfor %}
+                </div>
+            </div>
+        {% else %}
+            <div>Sem montadoras no momento...</div>
+        {% endif %}
+    </div>
+
+{% endblock %}
